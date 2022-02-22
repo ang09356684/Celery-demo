@@ -9,7 +9,7 @@ celery = Celery('tasks', backend='redis://localhost:6379', broker='redis://local
 
 class CustomTask(Task):
     def on_success(self, retval, task_id, args, kwargs):
-        print('task success!!!!!!!!!!!')
+        print('task success!!!')
         return super(CustomTask, self).on_success(retval, task_id, args, kwargs)
 
     def on_failure(self, exc, task_id, args, kwargs, einfo):
@@ -20,7 +20,6 @@ class CustomTask(Task):
 def custom_on_failure(self, exc, task_id, args, kwargs, einfo):
     print('in custom on failure and sonething wrong!!!')
     error_class = exc.__class__.__name__  # get occur error class
-    # detail = exc.args[0]  # 得到詳細的訊息 用exc
     cl, exc, tb = sys.exc_info()  # get whole exception info
     last_callstack = traceback.extract_tb(tb)[-1]  # get last line info of traceback
     exception_filename = last_callstack[0]
